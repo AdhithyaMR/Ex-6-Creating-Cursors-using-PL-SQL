@@ -1,5 +1,5 @@
 # Ex. No: 5 Creating Cursors using PL/SQL
-
+## DATE:07/09/2023
 ### AIM: To create a cursor using PL/SQL.
 
 ### Steps:
@@ -9,10 +9,50 @@
 4. Close the cursor
 
 ### Program:
-### Create employee table
+## Create employee table:
+```sql
+CREATE TABLE employd (
+  empid NUMBER,
+  empname VARCHAR(10),
+  dept VARCHAR(10),
+  salary NUMBER
+);
+select * from employd;
+INSERT INTO employd VALUES (1, 'Nagul', 'Sales', 100000);
+INSERT INTO employd VALUES (2, 'Arvind', 'Marketing', 120000);
+```
+## PLSQL Cursor code:
+```sql
+DECLARE
+   CURSOR employd_cursor IS
+   SELECT empid,empname,dept,salary
+   FROM employd;
+   emp_id NUMBER;
+   emp_name VARCHAR(50);
+   emp_dept VARCHAR(50);
+   emp_salary NUMBER;
+BEGIN
+  OPEN employd_cursor;
 
-### PLSQL Cursor code
+  LOOP
+    FETCH employd_cursor INTO emp_id, emp_name, emp_dept, emp_salary;
 
+    EXIT WHEN employd_cursor%NOTFOUND;
+
+    DBMS_OUTPUT.PUT_LINE('Employee ID: ' || emp_id);
+    DBMS_OUTPUT.PUT_LINE('Employee Name: ' || emp_name);
+    DBMS_OUTPUT.PUT_LINE('Department: ' || emp_dept);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || emp_salary);
+  END LOOP;
+
+  CLOSE employd_cursor;
+END;
+/
+```
 ### Output:
+![270953105-ce695c15-61e5-49f0-9d97-6687e007db95](https://github.com/AdhithyaMR/Ex-6-Creating-Cursors-using-PL-SQL/assets/118834761/b91e3234-1784-45cf-8225-0a0b573295ca)
+
+
 
 ### Result:
+The program has been implemented sucessfully.
